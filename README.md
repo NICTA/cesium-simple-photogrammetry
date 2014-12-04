@@ -43,6 +43,8 @@ The processing in PhotoScan has multiple stages with a few simple options for ea
 * Create a texture
 * Export textured object as Collada
 
+The whole process took around 15 mins to generate this model from photos.  Obviously timing will vary depending on the quality and size of the model you require.
+
 Postprocess
 -----------
 
