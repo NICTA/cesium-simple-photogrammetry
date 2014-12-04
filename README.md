@@ -1,113 +1,69 @@
-<p align="center">
-<a href="http://cesium.agi.com/">
-<img src="https://github.com/AnalyticalGraphicsInc/cesium/wiki/logos/Cesium_Logo_Color.jpg" width="50%" />
-</a>
-</p>
+From the real to the virtual world
+----------------------------------
 
-A simple JavaScript starter app for creating apps with [Cesium](http://cesium.agi.com/), the open-source WebGL virtual globe and map engine.  Just fork this repo and start coding.
+It is now surprisingly straightforward to capture 3D objects from the real world and represent them in the Cesium WebGL Virtual Globe.
+In the following example we use photogrammetry to generate a simple model of a toy bulldozer from photos.
+This 3D model is then converted and loaded into Cesium using glTF.  
+In this blog post emphasis is placed on the workflow rather than the quality of the 3D model.
+A blatant disregard for accurate scaling has also been leveraged to try to give the impression of a city being destroyed by a giant toy bulldozer.
 
-**Cesium version**: [1.3](http://cesiumjs.org/downloads.html).
+View the [live demo]()
 
-**License**: Apache 2.0.  Free for commercial and non-commercial use.  See [LICENSE.md](LICENSE.md).
+Capture
+-------
 
-My primary use for this is to quickly start coding at hackathons without having to setup a repo with a server, Eclipse project, third-party includes, .gitignore, etc.  Feel free to overwrite this README.md in your repo with info on your project.
+Your photogrammetry software should provide recommendations on how to take photos to provide best results.
+In general the technique will work best on non-shiny objects, and you'll want to provide some overlap between the photos you take.
 
-Once you are up and running, copy and paste code examples from [Cesium Sandcastle](http://cesiumjs.org/Cesium/Apps/Sandcastle/index.html).
+For this test a simple consumer Panasonic Lumix DMC-ZR1 was used.  The model captured could have also benefited from a greater number of pictures taken which would have improved the quality of the resulting mesh.
 
-Local server
-------------
+![PhotoScan](images/screengrab.jpg)
 
-A local HTTP server is required to run the app.
+Process
+-------
 
-Have python installed?  If so, from the `cesium-starter-app` root directory run
-```
-python -m SimpleHTTPServer
-```
-(Starting with Python 3, use `python -m http.server 8000`).
+There are a number of photogrammetry software solutions available with different licensing and costs.  Here's some as a starting point...
 
-Browse to `http://localhost:8000/`
+* [Agisoft PhotoScan](http://www.agisoft.com/)
+* [Autodesk RECAP 360](https://recap360.autodesk.com/)
+* [Autodesk 123D Catch](http://www.123dapp.com/catch)
+* [VisualSFM](http://ccwu.me/vsfm/)
+* [openMVG](https://github.com/openMVG/openMVG/)
+* [CMVS-PMVS](https://github.com/pmoulon/CMVS-PMVS)
+* [OpenDroneMap](https://github.com/OpenDroneMap)
+* [MeshLab](http://meshlab.sourceforge.net/) can also be useful for verifying meshes.
 
-No python?  Use Cesium's node.js server.
+For simplicity we'll use a free trial of Agisoft PhotoScan Standard Edition (normally US$179).
+The processing in PhotoScan has multiple stages with a few simple options for each stage.
 
-* Install [node.js](http://nodejs.org/)
-* From the `cesium-starter-app` root directory, run
-   * `npm install`
-   * `node server.js`
+* Import images
+* Create a sparse point cloud
+* Create a dense point cloud
+* Create a mesh
+* Create a texture
+* Export textured object as Collada
 
-Browse to `http://localhost:8000/`
+Postprocess
+-----------
 
-Hosting your app on GitHub Pages
---------------------------------
+I wasn't able to convert the PhotoScan Collada model directly to glTF due to some problems with the converter.
+To work around this I used the OpenCollada maya plugin to import the model, then re-assigned the shader (as a Maya surface shader).
+The model was then re-exported again with the OpenCollada maya plugin.
+Make sure texture paths in the Collada model are relative (e.g. change 'file://path/to/my/file.jpg' to 'file.jpg').
 
-If your app only requires static file serving (i.e. no proxying etc) it can be hosted using [GitHub Pages](https://pages.github.com/).
-* Push your app to a gh-pages branch on github.  If you want to push from master you can use this command:
-  `git push origin master:gh-pages`
-* After about 10 mins or so you can view your app with a URL like [http:/**my-github-username**.github.io/**my-awesome-cesium-starter-app**/](http://my-github-username.github.io/my-awesome-cesium-starter-app/)
+Hopefully as the glTF converter improves this postprocess step will not be required.
 
-Hosting your app on Heroku
---------------------------
+Convert
+-------
 
-It is simple to get an app up and running on a public server hosted by [Heroku](http://heroku.com/).  This will use the node server in this repo.  Depending on your app requirements this can often be done at no cost.
+Use the Cesium [online converter](http://cesiumjs.org/convertmodel.html) to convert the model to glTF.
+If successful you should see a preview of the model in the window.
+Any glTF conversion problems can be reported to [glTF issues](https://github.com/KhronosGroup/glTF/issues).
 
-* Make sure you have the [heroku toolbelt](https://toolbelt.heroku.com/) installed
-* `heroku create my-awesome-cesium-starter-app`
-* `git push heroku master`
-* If that succeeds you should be able to view your app with a URL like [https://**my-awesome-cesium-starter-app**.herokuapp.com](https://my-awesome-cesium-starter-app.herokuapp.com)
+![Cesium screengrab](images/screengrab-cesium.jpg)
 
-What's here?
-------------
-
-* [index.html](index.html) - A simple HTML page based on Cesium's Hello World example.  Run a local web server, and browse to index.html to run your app, which will show a 3D globe.
-* [Source](Source/) - Contains [App.js](Source/App.js) which is referenced from index.html.  This is where your app's code goes.
-* [ThirdParty](ThirdParty/) - A directory for third-party libraries, which initially includes just Cesium.  See the **Updating Cesium** section for how to use the latest version from the Cesium repo.
-* [server.js](server.js) - A simple node.js server for serving your Cesium app.  See the **Local server** section.
-* [package.json](package.json) - Dependencies for the node.js server.
-* [LICENSE.md](LICENSE.md) - A license file already referencing Cesium as a third-party.  This starter app is licensed with [Apache 2.0](http://www.apache.org/licenses/LICENSE-2.0.html) (free for commercial and non-commercial use).  You can, of course, license your code however you want.
-* [.project](.project) - An [Eclipse](http://www.eclipse.org/downloads/) project with [JSHint](http://www.jshint.com/) enabled.
-* [.settings](.settings/) - Directory with settings for the Eclipse project.
-* [.gitignore](.gitignore) - A small list of files not to include in the git repo.  Add to this as needed.
-
-Importing into Eclipse
-----------------------
-
-If you use Eclipse as your JavaScript IDE, it is easy to important the `cesium-starter-app` Eclipse project into a new workspace.  In Eclipse:
-* `File -> Switch Workspace -> Other`
-* Select a directory for the workspace and click `OK`
-* In `Package Explorer`, right click and select `Import`
-* Under `General`, select `Existing Projects into Workspace` and click `Next`
-* Next to `Select root directory`, click `Browse`
-* Browse to the `cesium-starter-app` root directory and click `Open`
-* Click `Finish`
-
-Updating Cesium
----------------
-
-The built Cesium source is in [ThirdParty/Cesium/](ThirdParty/Cesium/).  I sync this up with the master branch in the [Cesium repo](https://github.com/AnalyticalGraphicsInc/cesium) once in a while.  With `cesium` and `cesium-starter-app` repo directories in the same parent directory, here's up to update (replace `b25` with the tag/commit to update to):
-```
-cd cesium
-git pull
-git checkout -b 1.0-starter 1.0
-
-./Tools/apache-ant-1.8.2/bin/ant clean combine
-rm -rf ../cesium-starter-app/ThirdParty/Cesium/*
-cp -R Build/Cesium/* ../cesium-starter-app/ThirdParty/Cesium/
-git checkout master
-git branch -d 1.0-starter
-```
-Then update the version in [package.json](package.json) and at the top of this README.md.
-
-Test the starter app in case any changes are needed to [index.html](index.html) or [App.js](Source/App.js).
-
-This uses the unminified version of Cesium.js, which is great for debugging but is quite large for production deployments.  To use the minified version, run `ant` with `minify` instead of `combine` before updating `cesium-starter-app`:
-```
-./Tools/apache-ant-1.8.2/bin/ant clean minify
-```
-The [Cesium Contributor's Guide](https://github.com/AnalyticalGraphicsInc/cesium/wiki/Contributor's-Guide) has more info on Cesium build options.
-
-Cesium resources
+Load into Cesium
 ----------------
 
-* [Forum](http://cesium.agi.com/forum.html)
-* [Tutorials](http://cesium.agi.com/tutorials.html)
-* [Sandcastle](http://cesium.agi.com/Cesium/Apps/Sandcastle/index.html) - lots of examples to copy and paste.
-* [Reference Documentation](http://cesium.agi.com/refdoc.html)
+The final step is to load and geolocate your model.
+For this test I've created a simple CZML for loading into Cesium and have manually geolocated it, paying no attention to scale.

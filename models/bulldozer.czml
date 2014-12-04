@@ -1,0 +1,26 @@
+[{
+  "id" : "document",
+  "version" : "1.0"
+},{
+  "id": "bulldozer",
+  "name":"bulldozer",
+  "version":"1.0",
+  "model" : {
+    "gltf" : "bulldozer.gltf",
+    "show" : true,
+    "scale" : 100.0
+  },
+  "point": {
+    "color": {
+      "rgba": [255, 0, 0, 255]
+    },
+    "outlineWidth": 2.0,
+    "pixelSize": 3.0,
+    "show": true
+  },
+  "position": {
+    "cartographicDegrees": [151.217, -33.87, 0.0],
+    "interpolationAlgorithm": "LINEAR",
+    "interpolationDegree": 1
+  }
+}]
