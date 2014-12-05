@@ -70,4 +70,4 @@ Load into Cesium
 ----------------
 
 The final step is to load and geolocate your model.
-For this test I've created a simple CZML for loading into Cesium and have manually geolocated it, paying no attention to scale.
+For this test I've created a [simple CZML](models/bulldozer.czml) for loading into Cesium and have manually geolocated it, paying no attention to accurate scale.
