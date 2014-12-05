@@ -8,7 +8,7 @@ Provided the 3D model is not too complex, it can be brought directly into Cesium
 In the following example we'll proceed from photos taken of a toy bulldozer through to a 3D model visualised in Cesium using glTF.
 Note that emphasis is placed on workflow rather than the quality of the 3D model.
 
-View the [live demo]()
+View the [live demo](http://nicta.github.io/cesium-simple-photogrammetry/)
 
 ![Cesium screengrab](images/screengrab-cesium.jpg)
 
