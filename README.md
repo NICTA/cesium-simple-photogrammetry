@@ -19,9 +19,7 @@ Capture
 Your photogrammetry software should provide recommendations on how to take photos to provide best results.
 In general the technique will work best on non-shiny objects, and you'll want to provide some overlap between the photos you take.
 
-For this test a simple consumer Panasonic Lumix DMC-ZR1 was used.  The model captured could have also benefited from a greater number of pictures taken which would have improved the quality of the resulting mesh.
-
-![PhotoScan](images/screengrab.jpg)
+For this test a simple consumer Panasonic Lumix DMC-ZR1 was used.  In this test, the quality of the 3D model reconstruction would have benefited from a greater number of pictures take.
 
 Process
 -------
@@ -40,6 +38,8 @@ There are a number of photogrammetry software solutions available with different
 For simplicity we'll use a free trial of Agisoft PhotoScan Standard Edition (normally US$179).
 The processing in PhotoScan has multiple stages with a few simple options for each stage.
 
+![PhotoScan](images/screengrab.jpg)
+
 * Import images
 * Create a sparse point cloud
 * Create a dense point cloud
@@ -57,7 +57,7 @@ To work around this I used the OpenCollada maya plugin to import the model, then
 The model was then re-exported again with the OpenCollada maya plugin.
 Make sure texture paths in the Collada model are relative (e.g. change 'file://path/to/my/file.jpg' to 'file.jpg').
 
-Hopefully as the glTF converter improves this postprocess step will not be required.  If working with Autodesk Maya or 3DS Max I strongly suggest using the OpenCollada plugin, builds of which can be found [here](http://opencollada.fl4re.com/)
+Hopefully as the glTF converter improves this postprocess step will not be required.  If working with Autodesk Maya or 3DS Max I strongly suggest using the OpenCollada plugin, builds of which can be found [here](http://opencollada.fl4re.com/).
 
 Convert
 -------
@@ -70,4 +70,4 @@ Load into Cesium
 ----------------
 
 The final step is to load and geolocate your model.
-For this test I've created a simple CZML for loading into Cesium and have manually geolocated it, paying no attention to scale.
+For this test I've created a [simple CZML](models/bulldozer.czml) for loading into Cesium and have manually geolocated it, paying no attention to accurate scale.
