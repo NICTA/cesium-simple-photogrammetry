@@ -7,7 +7,7 @@ globe.depthTestAgainstTerrain = true;
 var cesiumTerrainProviderMeshes = new Cesium.CesiumTerrainProvider({
   url : '//cesiumjs.org/stk-terrain/tilesets/world/tiles'
 });
-scene.terrainProvider = cesiumTerrainProviderMeshes;
+//scene.terrainProvider = cesiumTerrainProviderMeshes;
 
 // Our model
 var czmlDataSource = new Cesium.CzmlDataSource();

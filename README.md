@@ -1,13 +1,17 @@
 From the real to the virtual world
 ----------------------------------
 
-It is now surprisingly straightforward to capture 3D objects from the real world and represent them in the Cesium WebGL Virtual Globe.
-In the following example we use photogrammetry to generate a simple model of a toy bulldozer from photos.
-This 3D model is then converted and loaded into Cesium using glTF.  
-In this blog post emphasis is placed on the workflow rather than the quality of the 3D model.
-A blatant disregard for accurate scaling has also been leveraged to try to give the impression of a city being destroyed by a giant toy bulldozer.
+A number of [Doarama](http://doarama.com/) users have expressed interest in augmenting the [Cesium WebGL Virtual Globe](http://cesiumjs.org/) with custom meshes.
+For example this might include a 3D model generated from photos captured by a drone.
+It is now relatively straightforward to capture 3D objects from the real world using photogrammetry.
+Provided the 3D model is not too complex, it can be brought directly into Cesium for display.
+In the following example we'll proceed from photos taken of a toy bulldozer through to a 3D model visualised in Cesium using glTF.
+Note that emphasis is placed on workflow rather than the quality of the 3D model.
 
 View the [live demo]()
+
+![Cesium screengrab](images/screengrab-cesium.jpg)
+
 
 Capture
 -------
@@ -49,11 +53,11 @@ Postprocess
 -----------
 
 I wasn't able to convert the PhotoScan Collada model directly to glTF due to some problems with the converter.
-To work around this I used the OpenCollada maya plugin to import the model, then re-assigned the shader (as a Maya surface shader).
+To work around this I used the OpenCollada maya plugin to import the model, then re-assigned the shader (as a Maya surface shader).  I also trimmed some polygons from the mesh.
 The model was then re-exported again with the OpenCollada maya plugin.
 Make sure texture paths in the Collada model are relative (e.g. change 'file://path/to/my/file.jpg' to 'file.jpg').
 
-Hopefully as the glTF converter improves this postprocess step will not be required.
+Hopefully as the glTF converter improves this postprocess step will not be required.  If working with Autodesk Maya or 3DS Max I strongly suggest using the OpenCollada plugin, builds of which can be found [here](http://opencollada.fl4re.com/)
 
 Convert
 -------
@@ -61,8 +65,6 @@ Convert
 Use the Cesium [online converter](http://cesiumjs.org/convertmodel.html) to convert the model to glTF.
 If successful you should see a preview of the model in the window.
 Any glTF conversion problems can be reported to [glTF issues](https://github.com/KhronosGroup/glTF/issues).
-
-![Cesium screengrab](images/screengrab-cesium.jpg)
 
 Load into Cesium
 ----------------
