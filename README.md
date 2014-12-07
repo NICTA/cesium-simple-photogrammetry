@@ -36,23 +36,24 @@ There are a number of photogrammetry software solutions available with different
 * [MeshLab](http://meshlab.sourceforge.net/) can also be useful for verifying meshes.
 
 For simplicity we'll use a free trial of Agisoft PhotoScan Standard Edition (normally US$179).
-The processing in PhotoScan has multiple stages with a few simple options for each stage.
 
 ![PhotoScan](images/screengrab.jpg)
 
-* Import images
-* Create a sparse point cloud
-* Create a dense point cloud
-* Create a mesh
-* Create a texture
-* Export textured object as Collada
+The processing in PhotoScan has multiple stages with a few simple options for each stage.  These stages are shown under the 'Workflow' menu.  For the purpose of this test we'll just stick to the defaults options.
+
+* Add photos
+* Align photos (this will create a sparse point cloud)
+* Build dense point cloud
+* Build mesh
+* Build texture
 
 The whole process took around 15 mins to generate this model from photos.  Obviously timing will vary depending on the quality and size of the model you require.
+Once you have done these steps you can use the File menu to export the model as Collada
 
 Postprocess
 -----------
 
-I wasn't able to convert the PhotoScan Collada model directly to glTF due to some problems with the converter.
+I wasn't able to convert the PhotoScan Collada model directly to glTF due to [an issue with the converter](https://github.com/KhronosGroup/glTF/issues/339).
 To work around this I used the OpenCollada maya plugin to import the model, then re-assigned the shader (as a Maya surface shader).  I also trimmed some polygons from the mesh.
 The model was then re-exported again with the OpenCollada maya plugin.
 Make sure texture paths in the Collada model are relative (e.g. change 'file://path/to/my/file.jpg' to 'file.jpg').
