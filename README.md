@@ -19,7 +19,7 @@ Capture
 Your photogrammetry software should provide recommendations on how to take photos to provide best results.
 In general the technique will work best on non-shiny objects, and you'll want to provide some overlap between the photos you take.
 
-For this test a simple consumer Panasonic Lumix DMC-ZR1 was used.  In this test, the quality of the 3D model reconstruction would have benefited from a greater number of pictures take.
+For this test a simple consumer Panasonic Lumix DMC-ZR1 was used, and the quality of the 3D model reconstruction would have benefited from a greater number of pictures take.
 
 Process
 -------
@@ -53,12 +53,10 @@ Once you have done these steps you can use the File menu to export the model as 
 Postprocess
 -----------
 
-I wasn't able to convert the PhotoScan Collada model directly to glTF due to [an issue with the converter](https://github.com/KhronosGroup/glTF/issues/339).
-To work around this I used the OpenCollada maya plugin to import the model, then re-assigned the shader (as a Maya surface shader).  I also trimmed some polygons from the mesh.
-The model was then re-exported again with the OpenCollada maya plugin.
-Make sure texture paths in the Collada model are relative (e.g. change 'file://path/to/my/file.jpg' to 'file.jpg').
-
-Hopefully as the glTF converter improves this postprocess step will not be required.  If working with Autodesk Maya or 3DS Max I strongly suggest using the OpenCollada plugin, builds of which can be found [here](http://opencollada.fl4re.com/).
+I wasn't able to convert the PhotoScan Collada model directly to glTF due to [an issue with the exporter](https://github.com/KhronosGroup/glTF/issues/339).
+To work around this I used the OpenCollada Maya plugin (builds [here](http://opencollada.fl4re.com/)) to import the model, then re-assigned the shader (as a Maya surface shader).  I also trimmed some polygons from the mesh.
+The model was then re-exported again with the OpenCollada Maya plugin.
+Make sure texture paths in the Collada model are relative (e.g. change `file://path/to/my/file.jpg` to `file.jpg`).
 
 Convert
 -------
